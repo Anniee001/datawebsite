@@ -155,34 +155,24 @@
   -->
 
   <script type="text/javascript">
-    var dom = document.getElementById('container');
-    var myChart = echarts.init(dom, null, {
-      renderer: 'canvas',
-      useDirtyRect: false
-    });
-    var app = {};
+      var dom = document.getElementById('container');
+      var myChart = echarts.init(dom, null, {renderer: 'canvas', useDirtyRect: false});
+      var app = {};
+      var option;
 
-    var option;
-
-let dataAxis = ['传统风俗', '地域特色', '旅游产业', '文化发展', '乡村振兴'];
-
-let data = [139, 114, 45, 74, 57];
-let yMax = 500;
-let dataShadow = [];
-for (let i = 0; i < data.length; i++) {
-  dataShadow.push(yMax);
-}
-option = {
-  {#title: {#}
-  {#  text: '特性示例：渐变色 阴影 点击缩放',#}
-  {#  subtext: 'Feature Sample: Gradient Color, Shadow, Click Zoom'#}
-  {#},#}
-  xAxis: {
-    data: dataAxis,
-    axisLabel: {
-      inside: true,
-      color: '#fff'
-    },
+      let dataAxis = ['传统风俗', '地域特色', '旅游产业', '文化发展', '乡村振兴'];
+      let data = [139, 114, 45, 74, 57];
+      let yMax = 500;
+      let dataShadow = [];
+        for (let i = 0; i < data.length; i++) {
+            dataShadow.push(yMax);}
+      option = {
+     xAxis: {
+       data: dataAxis,
+     axisLabel: {
+       inside: true,
+       color: '#fff'
+     },
     axisTick: {
       show: false
     },
@@ -232,6 +222,7 @@ option = {
   ]
 };
 const zoomSize = 6;
+                                
 myChart.on('click', function (params) {
   console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
   myChart.dispatchAction({
@@ -261,8 +252,6 @@ myChart.on('click', function (params) {
     </div>
 </footer>
 <!-- //footer block -->
-
-
 
 
 <!-- Js scripts -->
