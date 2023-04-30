@@ -140,19 +140,15 @@
 
 
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
-  <!-- Uncomment this line if you want to dataTool extension
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/extension/dataTool.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to use gl extension
+
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to echarts-stat extension
+  
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to use map
+
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
-  -->
+
   <!-- Uncomment these two lines if you want to use bmap extension
   <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/extension/bmap.min.js"></script>
@@ -168,9 +164,8 @@
 
     var option;
 
-    // prettier-ignore
 let dataAxis = ['传统风俗', '地域特色', '旅游产业', '文化发展', '乡村振兴'];
-// prettier-ignore
+
 let data = [139, 114, 45, 74, 57];
 let yMax = 500;
 let dataShadow = [];
@@ -236,7 +231,6 @@ option = {
     }
   ]
 };
-// Enable data zoom when user click bar.
 const zoomSize = 6;
 myChart.on('click', function (params) {
   console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
