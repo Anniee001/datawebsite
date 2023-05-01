@@ -236,6 +236,105 @@
 
     window.addEventListener('resize', myChart.resize);
   </script>
+                                
+   <div id="container" style="height: 500%"></div>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/extension/dataTool.min.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+      var dom = document.getElementById('container');
+      var myChart1 = echarts.init(dom, null, {renderer: 'canvas', useDirtyRect: false});
+      var app = {};
+      var option;
+
+      let dataAxis = ['传统风俗', '地域特色', '旅游产业', '文化发展', '乡村振兴'];
+      let data = [139, 114, 45, 74, 57];
+      let yMax = 500;
+      let dataShadow = [];
+        for (let i = 0; i < data.length; i++) {
+            dataShadow.push(yMax);}
+      option = {
+     xAxis: {
+       data: dataAxis,
+     axisLabel: {
+       inside: true,
+       color: '#fff'
+     },
+    axisTick: {
+      show: false
+    },
+    axisLine: {
+      show: false
+    },
+    z: 10
+  },
+  yAxis: {
+    axisLine: {
+      show: false
+    },
+    axisTick: {
+      show: false
+    },
+    axisLabel: {
+      color: '#999'
+    }
+  },
+  dataZoom: [
+    {
+      type: 'inside'
+    }
+  ],
+  series: [
+    {
+      type: 'bar',
+      showBackground: true,
+      itemStyle: {
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          { offset: 0, color: '#c6b7e1' },
+          { offset: 0.5, color: '#7854b8' },
+          { offset: 1, color: '#7854b8' }
+        ])
+      },
+      emphasis: {
+        itemStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#2378f7' },
+            { offset: 0.7, color: '#2378f7' },
+            { offset: 1, color: '#83bff6' }
+          ])
+        }
+      },
+      data: data
+    }
+  ]
+};
+const zoomSize = 6;
+                                
+myChart1.on('click', function (params) {
+  console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+  myChart1.dispatchAction({
+    type: 'dataZoom',
+    startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+    endValue:
+      dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+  });
+});
+
+    if (option && typeof option === 'object') {
+      myChart1.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart1.resize);
+  </script>
 </section>
 
 <footer class="w3l-footer-29-main">
