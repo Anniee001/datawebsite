@@ -14,14 +14,13 @@
     <!-- //google-fonts -->
 
     <!-- Template CSS Style link -->
-    <link rel="stylesheet" href="static/css/style-liberty.css">
+    <link rel="stylesheet" href="/static/css/style-liberty.css">
     <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script src="/static/js/echarts.min.js"></script>
 
 </head>
 
 <body>
-
 
 <!--header-->
 <header id="site-header" class="fixed-top">
@@ -146,23 +145,19 @@
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
-  <!-- Uncomment these two lines if you want to use bmap extension
-  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/extension/bmap.min.js"></script>
-  -->
 
   <script type="text/javascript">
     var dom = document.getElementById('container');
-    var myChart2 = echarts.init(dom, null, {
+    var myChart = echarts.init(dom, null, {
       renderer: 'canvas',
       useDirtyRect: false
     });
     var app = {};
     var option;
 
-    myChart2.showLoading();
+    myChart.showLoading();
 $.getJSON('/static/js/newTJZgraph2.json', function (graph) {
-  myChart2.hideLoading();
+  myChart.hideLoading();
   option = {
     tooltip: {},
     legend: [
@@ -200,14 +195,14 @@ $.getJSON('/static/js/newTJZgraph2.json', function (graph) {
       }
     ]
   };
-  myChart2.setOption(option);
+  myChart.setOption(option);
 });
 
     if (option && typeof option === 'object') {
-      myChart2.setOption(option);
+      myChart.setOption(option);
     }
 
-    window.addEventListener('resize', myChart2.resize);
+    window.addEventListener('resize', myChart.resize);
   </script>
 </section>
                                 
@@ -251,16 +246,18 @@ $.getJSON('/static/js/newTJZgraph2.json', function (graph) {
 <!-- //move top -->
 
 <!-- common jquery plugin -->
-<script src="static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/echarts.min.js"></script>
 <!-- //common jquery plugin -->
 
 <!-- theme switch js (light and dark)-->
-<script src="static/js/theme-change.js"></script>
+<script src="/static/js/theme-change.js"></script>
 <!-- //theme switch js (light and dark)-->
 
 <!--/stats-number-counter-->
-<script src="static/js/jquery.waypoints.min.js"></script>
-<script src="static/js/jquery.countup.js"></script>
+<script src="/static/js/jquery.waypoints.min.js"></script>
+<script src="/static/js/jquery.countup.js"></script>
 <script>
     $('.counter').countUp();
 
@@ -268,7 +265,7 @@ $.getJSON('/static/js/newTJZgraph2.json', function (graph) {
 <!--//stats-number-counter-->
 
 <!--/owlcarousel-->
-<script src="static/js/owl.carousel.js"></script>
+<script src="/static/js/owl.carousel.js"></script>
 <!-- //tesimonials-->
 <script>
     $(document).ready(function() {
