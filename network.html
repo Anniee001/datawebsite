@@ -48,10 +48,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="wordcloud.html">热门词云</a>
                     </li>
-                    <li class="nav-item  active"">
+                    <li class="nav-item "">
                         <a class="nav-link" href="timeline.html">时间趋势</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             主题分布<span class="fas fa-angle-down"></span>
@@ -127,8 +127,8 @@
     <div class="breadcrumb-bg breadcrumb-bg-about py-5">
         <div class="container py-lg-5 py-md-4">
             <div class="banner-info-grid px-md-5">
-                <h2 class="w3l-title-breadcrumb mb-3">关注高点</h2>
-                <p class="inner-page-para px-lg-5">  寒暑假、小长假聚集舆论关注</p>
+                <h2 class="w3l-title-breadcrumb mb-3">共现关系</h2>
+                <p class="inner-page-para px-lg-5">  婚嫁习俗相关热词关联度高</p>
             </div>
         </div>
     </div>
@@ -136,23 +136,19 @@
 <!-- //Services banner -->
 <!-- Why Choose Us Section-->
 <section class="w3l-whychooseus py-5" >
-    <div id="container" style="height: 500%"></div>
+  <div id="container" style="height: 500%"></div>
+   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/jquery"></script>
+   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
 
-
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
-  <!-- Uncomment this line if you want to dataTool extension
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/extension/dataTool.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to use gl extension
+
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to echarts-stat extension
+
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to use map
+
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
-  -->
+
   <!-- Uncomment these two lines if you want to use bmap extension
   <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/extension/bmap.min.js"></script>
@@ -160,84 +156,64 @@
 
   <script type="text/javascript">
     var dom = document.getElementById('container');
-    var myChart = echarts.init(dom, null, {
+    var myChart2 = echarts.init(dom, null, {
       renderer: 'canvas',
       useDirtyRect: false
     });
     var app = {};
-
     var option;
 
-    option = {
-  xAxis: {
-    type: 'category',
-    boundaryGap: false
-  },
-  yAxis: {
-    type: 'value',
-      min: 1000,
-      max: 2200,
-    boundaryGap: [0, '30%']
-  },
-  visualMap: {
-    type: 'piecewise',
-    show: false,
-    dimension: 0,
-    seriesIndex: 0,
-    pieces: [
+    myChart2.showLoading();
+$.getJSON('/static/js/newTJZgraph2.json', function (graph) {
+  myChart2.hideLoading();
+  option = {
+    tooltip: {},
+    legend: [
       {
-        gt: 2,
-        lt: 3.5,
-        color: 'rgba(0, 0, 180, 0.4)'
-      },
+        data: graph.categories.map(function (a) {
+          return a.name;
+        })
+      }
+    ],
+    series: [
       {
-        gt: 7,
-        lt: 8.5,
-        color: 'rgba(0, 0, 180, 0.4)'
+        name: 'Les Miserables',
+        type: 'graph',
+        layout: 'none',
+        data: graph.nodes,
+        links: graph.links,
+        categories: graph.categories,
+        roam: true,
+        label: {
+          show: true,
+          position: 'right',
+          formatter: '{b}'
+        },
+        labelLayout: {
+          hideOverlap: true
+        },
+        scaleLimit: {
+          min: 0.4,
+          max: 2
+        },
+        lineStyle: {
+          color: 'source',
+          curveness: 0.3
+        }
       }
     ]
-  },
-  series: [
-    {
-      type: 'line',
-      smooth: 0.6,
-      symbol: 'none',
-      lineStyle: {
-        color: '#5470C6',
-        width: 5
-      },
-      markLine: {
-        symbol: ['none', 'none'],
-        label: { show: false },
-        data: [{ xAxis: 2 }, { xAxis: 3.5 }, { xAxis: 7 }, { xAxis: 8.5 }]
-      },
-      areaStyle: {},
-      data: [
-        ['2022-01', 1077],
-        ['2022-02', 1105],
-        ['2022-03', 1418],
-        ['2022-04', 1788],
-        ['2022-05', 1186],
-        ['2022-06', 1183],
-        ['2022-07', 1115],
-        ['2022-08', 1170],
-        ['2022-09', 2046],
-        ['2022-10', 1467],
-        ['2022-11', 1199],
-        ['2022-12', 1155]
-      ]
-    }
-  ]
-};
+  };
+  myChart2.setOption(option);
+});
 
     if (option && typeof option === 'object') {
-      myChart.setOption(option);
+      myChart2.setOption(option);
     }
 
-    window.addEventListener('resize', myChart.resize);
+    window.addEventListener('resize', myChart2.resize);
   </script>
 </section>
-
+                                
 <footer class="w3l-footer-29-main">
     <div class="footer-29 pt-5 pb-4">
         <div class="container pt-md-4">
@@ -248,8 +224,6 @@
     </div>
 </footer>
 <!-- //footer block -->
-
-
 
 
 <!-- Js scripts -->
